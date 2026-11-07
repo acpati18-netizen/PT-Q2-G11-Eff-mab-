@@ -1,0 +1,1424 @@
+<!DOCTYPE html> 
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MITHI — The People's Desire</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Merriweather:ital,wght@0,300;0,400;0,700;1,300&family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            mithi: {
+              blue: '#0D1B2A',
+              deepNavy: '#070F1E',
+              blueLight: '#1B2A4A',
+              crimson: '#8B0000',
+              crimsonBright: '#B22222',
+              gold: '#D4AF37',
+              goldLight: '#E6CA65',
+              sepiaBg: '#FBF7EE',
+              sepiaCard: '#F3EDDF'
+            }
+          },
+          fontFamily: {
+            serif: ['Playfair Display', 'Georgia', 'serif'],
+            body: ['Merriweather', 'serif'],
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Cinzel', 'serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body.bg-subtle-blend {
+      background-color: #FAF8F5;
+      background-image:
+        radial-gradient(at 10% 15%, rgba(139, 0, 0, 0.06) 0px, transparent 45%),
+        radial-gradient(at 85% 20%, rgba(212, 175, 55, 0.12) 0px, transparent 50%),
+        radial-gradient(at 50% 85%, rgba(13, 27, 42, 0.07) 0px, transparent 55%);
+      background-attachment: fixed;
+    }
+
+    html.dark body.bg-subtle-blend {
+      background-color: #070F1E !important;
+      background-image:
+        radial-gradient(at 15% 15%, rgba(139, 0, 0, 0.22) 0px, transparent 50%),
+        radial-gradient(at 85% 20%, rgba(212, 175, 55, 0.16) 0px, transparent 45%),
+        radial-gradient(at 50% 90%, rgba(27, 42, 74, 0.55) 0px, transparent 60%);
+      background-attachment: fixed;
+    }
+
+    body.theme-sepia {
+      background-color: #FBF7EE !important;
+      background-image:
+        radial-gradient(at 10% 15%, rgba(139, 0, 0, 0.05) 0px, transparent 40%),
+        radial-gradient(at 85% 20%, rgba(212, 175, 55, 0.10) 0px, transparent 45%) !important;
+      color: #0D1B2A !important;
+    }
+
+    body.theme-sepia .bg-card {
+      background-color: #F3EDDF !important;
+    }
+
+    .drop-cap::first-letter {
+      font-family: 'Playfair Display', serif;
+      float: left;
+      font-size: 3.8rem;
+      line-height: 0.8;
+      padding-top: 4px;
+      padding-right: 10px;
+      padding-bottom: 2px;
+      font-weight: 700;
+      color: #D4AF37;
+    }
+
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(13, 27, 42, 0.05);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #D4AF37;
+      border-radius: 3px;
+    }
+
+    .member-card:hover .member-photo {
+      transform: scale(1.08);
+    }
+  </style>
+</head>
+
+<body class="bg-subtle-blend text-mithi-blue font-sans transition-colors duration-300 dark:text-white min-h-screen flex flex-col justify-between">
+
+  <header class="border-b-2 border-mithi-gold/40 sticky top-0 bg-white/90 dark:bg-mithi-blue/90 backdrop-blur-md z-40 transition-colors shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="py-6 flex items-center justify-between border-b border-stone-200 dark:border-mithi-blueLight">
+        <div class="flex items-center space-x-3">
+          <button onclick="toggleMobileMenu()" class="lg:hidden text-mithi-blue dark:text-white text-xl p-1">
+            <i class="fa-solid fa-bars"></i>
+          </button>
+
+          <button onclick="openSearchModal()" class="hidden sm:flex items-center space-x-2 text-xs text-stone-500 dark:text-stone-300 bg-stone-100/80 dark:bg-mithi-blueLight hover:bg-stone-200 dark:hover:bg-mithi-blueLight/80 px-3 py-1.5 rounded-full transition border border-stone-200 dark:border-mithi-gold/20">
+            <i class="fa-solid fa-magnifying-glass text-mithi-crimson dark:text-mithi-gold"></i>
+            <span>Search MITHI...</span>
+            <kbd class="text-[10px] bg-stone-200 dark:bg-mithi-deepNavy px-1.5 py-0.5 rounded text-stone-600 dark:text-stone-300">⌘K</kbd>
+          </button>
+        </div>
+
+        <a href="#" onclick="filterCategory('all')" class="flex flex-col items-center group">
+          <div class="flex items-center space-x-3">
+            <img
+              src="https://lh3.googleusercontent.com/d/1ZSoZj2m8iUk_o85CI_kMntUqnmGpWgbq"
+              alt="MITHI Logo"
+              class="h-10 sm:h-12 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+              onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=1ZSoZj2m8iUk_o85CI_kMntUqnmGpWgbq&sz=w500'; this.onerror=function(){this.style.display='none'};"
+            >
+
+            <span class="font-display font-extrabold text-3xl sm:text-5xl tracking-wider text-mithi-blue dark:text-white uppercase">
+              MITHI
+            </span>
+          </div>
+
+          <span class="text-[10px] sm:text-xs font-sans tracking-[0.3em] text-mithi-crimson dark:text-mithi-gold uppercase mt-1 font-bold">
+            The People's Desire
+          </span>
+        </a>
+
+        <div class="flex items-center space-x-3">
+          <button onclick="openSearchModal()" class="sm:hidden text-mithi-blue dark:text-white p-2">
+            <i class="fa-solid fa-magnifying-glass text-mithi-crimson dark:text-mithi-gold"></i>
+          </button>
+
+          <div class="flex items-center space-x-1 bg-stone-100/80 dark:bg-mithi-blueLight rounded-full p-1 border border-stone-200 dark:border-mithi-gold/30">
+            <button onclick="setTheme('light')" class="px-2 py-1 rounded-full text-xs hover:text-mithi-crimson dark:hover:text-mithi-gold transition" title="Light Mode">
+              <i class="fa-solid fa-sun"></i>
+            </button>
+
+            <button onclick="setTheme('sepia')" class="px-2 py-1 rounded-full text-xs hover:text-mithi-crimson dark:hover:text-mithi-gold transition" title="Sepia Mode">
+              <i class="fa-solid fa-book-open"></i>
+            </button>
+
+            <button onclick="setTheme('dark')" class="px-2 py-1 rounded-full text-xs hover:text-mithi-gold transition" title="Dark Mode">
+              <i class="fa-solid fa-moon"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <nav class="hidden lg:flex items-center justify-center space-x-12 py-3.5 text-xs font-bold tracking-widest uppercase text-mithi-blue dark:text-stone-200">
+        <button onclick="filterCategory('all')" id="nav-all" class="nav-btn text-mithi-crimson dark:text-mithi-gold border-b-2 border-mithi-crimson dark:border-mithi-gold py-1 transition">
+          All
+        </button>
+
+        <button onclick="openAboutModal()" id="nav-about" class="nav-btn hover:text-mithi-crimson dark:hover:text-mithi-gold py-1 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-circle-info text-[10px] text-mithi-gold"></i> About
+        </button>
+
+        <a href="#team" class="nav-btn hover:text-mithi-crimson dark:hover:text-mithi-gold py-1 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-users text-[10px] text-mithi-gold"></i> Team
+        </a>
+
+        <div class="relative group py-1">
+          <button onclick="filterCategory('Filipino')" id="nav-filipino" class="nav-btn hover:text-mithi-crimson dark:hover:text-mithi-gold transition flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-mithi-crimson"></span>
+            Filipino Section
+            <i class="fa-solid fa-chevron-down text-[9px] opacity-75 group-hover:rotate-180 transition-transform ml-0.5"></i>
+          </button>
+
+          <div class="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-44 bg-white dark:bg-mithi-blue rounded-xl shadow-xl border border-stone-200 dark:border-mithi-gold/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-1.5">
+            <button onclick="filterCategory('Filipino')" class="w-full text-left px-3 py-2 text-xs rounded-lg hover:bg-stone-100 dark:hover:bg-mithi-blueLight flex items-center gap-2 text-stone-800 dark:text-stone-200 transition">
+              <i class="fa-solid fa-layer-group text-mithi-gold text-[10px]"></i> Lahat sa Filipino
+            </button>
+
+            <button onclick="filterCategory('Balita')" class="w-full text-left px-3 py-2 text-xs rounded-lg hover:bg-stone-100 dark:hover:bg-mithi-blueLight flex items-center gap-2 text-stone-800 dark:text-stone-200 transition">
+              <i class="fa-solid fa-newspaper text-mithi-crimson text-[10px]"></i> Balita
+            </button>
+
+            <button onclick="filterCategory('Kolum')" class="w-full text-left px-3 py-2 text-xs rounded-lg hover:bg-stone-100 dark:hover:bg-mithi-blueLight flex items-center gap-2 text-stone-800 dark:text-stone-200 transition">
+              <i class="fa-solid fa-pen-nib text-mithi-gold text-[10px]"></i> Kolum
+            </button>
+          </div>
+        </div>
+
+        <div class="relative group py-1">
+          <button onclick="filterCategory('English')" id="nav-english" class="nav-btn hover:text-mithi-crimson dark:hover:text-mithi-gold transition flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-mithi-blue dark:bg-sky-400"></span>
+            English Section
+            <i class="fa-solid fa-chevron-down text-[9px] opacity-75 group-hover:rotate-180 transition-transform ml-0.5"></i>
+          </button>
+
+          <div class="absolute top-full left-1/2 -translate-x-1/2 mt-1 w-44 bg-white dark:bg-mithi-blue rounded-xl shadow-xl border border-stone-200 dark:border-mithi-gold/30 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50 p-1.5">
+            <button onclick="filterCategory('English')" class="w-full text-left px-3 py-2 text-xs rounded-lg hover:bg-stone-100 dark:hover:bg-mithi-blueLight flex items-center gap-2 text-stone-800 dark:text-stone-200 transition">
+              <i class="fa-solid fa-layer-group text-mithi-gold text-[10px]"></i> All in English
+            </button>
+
+            <button onclick="filterCategory('Feature')" class="w-full text-left px-3 py-2 text-xs rounded-lg hover:bg-stone-100 dark:hover:bg-mithi-blueLight flex items-center gap-2 text-stone-800 dark:text-stone-200 transition">
+              <i class="fa-solid fa-star text-sky-500 text-[10px]"></i> Feature
+            </button>
+
+            <button onclick="filterCategory('Editorial')" class="w-full text-left px-3 py-2 text-xs rounded-lg hover:bg-stone-100 dark:hover:bg-mithi-blueLight flex items-center gap-2 text-stone-800 dark:text-stone-200 transition">
+              <i class="fa-solid fa-quote-left text-mithi-gold text-[10px]"></i> Editorial
+            </button>
+          </div>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <div id="mobileMenu" class="fixed inset-0 bg-mithi-deepNavy/90 backdrop-blur-md z-50 hidden transition-opacity">
+    <div class="bg-white dark:bg-mithi-blue w-4/5 max-w-sm h-full p-6 flex flex-col justify-between shadow-2xl border-r border-mithi-gold/30">
+      <div>
+        <div class="flex justify-between items-center mb-8 border-b pb-4 border-stone-200 dark:border-mithi-blueLight">
+          <span class="font-display text-2xl font-bold tracking-widest text-mithi-blue dark:text-white">MITHI</span>
+
+          <button onclick="toggleMobileMenu()" class="text-stone-500 dark:text-stone-300 text-xl">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+
+        <nav class="flex flex-col space-y-4 font-sans text-sm font-bold tracking-wider uppercase">
+          <a href="#" onclick="filterCategory('all'); toggleMobileMenu();" class="text-mithi-crimson dark:text-mithi-gold py-2 border-b border-stone-100 dark:border-mithi-blueLight">
+            All
+          </a>
+
+          <a href="#" onclick="openAboutModal(); toggleMobileMenu();" class="py-2 border-b border-stone-100 dark:border-mithi-blueLight flex items-center gap-2 text-mithi-blue dark:text-white">
+            <i class="fa-solid fa-circle-info text-mithi-gold"></i> About MITHI
+          </a>
+
+          <a href="#team" onclick="toggleMobileMenu();" class="py-2 border-b border-stone-100 dark:border-mithi-blueLight flex items-center gap-2 text-mithi-blue dark:text-white">
+            <i class="fa-solid fa-users text-mithi-gold"></i> Team Members
+          </a>
+
+          <div class="py-2 border-b border-stone-100 dark:border-mithi-blueLight space-y-2">
+            <a href="#" onclick="filterCategory('Filipino'); toggleMobileMenu();" class="flex items-center gap-2 text-mithi-blue dark:text-white font-bold">
+              <span class="w-2.5 h-2.5 rounded-full bg-mithi-crimson"></span> Filipino Section
+            </a>
+
+            <div class="pl-5 space-y-2 text-xs font-medium lowercase first-letter:uppercase">
+              <a href="#" onclick="filterCategory('Balita'); toggleMobileMenu();" class="block text-stone-600 dark:text-stone-300 hover:text-mithi-crimson dark:hover:text-mithi-gold flex items-center gap-2">
+                <i class="fa-solid fa-newspaper text-mithi-crimson text-[10px]"></i> Balita
+              </a>
+
+              <a href="#" onclick="filterCategory('Kolum'); toggleMobileMenu();" class="block text-stone-600 dark:text-stone-300 hover:text-mithi-crimson dark:hover:text-mithi-gold flex items-center gap-2">
+                <i class="fa-solid fa-pen-nib text-mithi-gold text-[10px]"></i> Kolum
+              </a>
+            </div>
+          </div>
+
+          <div class="py-2 border-b border-stone-100 dark:border-mithi-blueLight space-y-2">
+            <a href="#" onclick="filterCategory('English'); toggleMobileMenu();" class="flex items-center gap-2 text-mithi-blue dark:text-white font-bold">
+              <span class="w-2.5 h-2.5 rounded-full bg-mithi-blue dark:bg-sky-400"></span> English Section
+            </a>
+
+            <div class="pl-5 space-y-2 text-xs font-medium capitalize">
+              <a href="#" onclick="filterCategory('Feature'); toggleMobileMenu();" class="block text-stone-600 dark:text-stone-300 hover:text-mithi-crimson dark:hover:text-mithi-gold flex items-center gap-2">
+                <i class="fa-solid fa-star text-sky-500 text-[10px]"></i> Feature
+              </a>
+
+              <a href="#" onclick="filterCategory('Editorial'); toggleMobileMenu();" class="block text-stone-600 dark:text-stone-300 hover:text-mithi-crimson dark:hover:text-mithi-gold flex items-center gap-2">
+                <i class="fa-solid fa-quote-left text-mithi-gold text-[10px]"></i> Editorial
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
+
+      <div class="pt-6 border-t border-stone-200 dark:border-mithi-blueLight">
+        <p class="text-xs text-stone-500 dark:text-stone-400">MITHI Publication</p>
+      </div>
+    </div>
+  </div>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex-grow w-full">
+
+    <section class="mb-12 bg-stone-900/90 backdrop-blur-md text-white border-2 border-mithi-gold/40 rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden relative">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-stone-800 pb-4">
+        <div>
+          <span class="px-3.5 py-1 bg-mithi-gold text-mithi-blue font-mono text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm inline-flex items-center gap-2">
+            <i class="fa-solid fa-circle-play text-mithi-crimson"></i> Tampok na Adbokasiya / Advocacy Video
+          </span>
+
+          <h2 class="font-serif text-2xl sm:text-4xl font-extrabold mt-3 text-white tracking-wide">
+            Panoorin: Kamalayan sa Kalusugang Pangkaisipan
+          </h2>
+
+          <p class="text-xs sm:text-sm text-stone-300 mt-2 max-w-2xl leading-relaxed">
+            Isang tampok na video ukol sa kahalagahan ng pag-unawa sa anxiety at pangangalaga sa kalusugang pangkaisipan ng kabataan.<br>
+            Songs used: Linkin Park - One Light<br>
+            Malcolm Todd - Roommates
+          </p>
+        </div>
+
+        <a href="https://drive.google.com/file/d/1LELXCePMGkxMGTf4ij--XSWmG-4xNJqO/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="self-start md:self-auto px-4 py-2 bg-stone-800 hover:bg-stone-700 text-mithi-gold text-xs font-bold rounded-xl border border-mithi-gold/30 transition flex items-center gap-2">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i> Open in Google Drive
+        </a>
+      </div>
+
+      <div class="relative w-full aspect-video rounded-2xl overflow-hidden border border-mithi-gold/30 bg-black shadow-inner">
+        <iframe
+          src="https://drive.google.com/file/d/1LELXCePMGkxMGTf4ij--XSWmG-4xNJqO/preview"
+          class="w-full h-full border-0"
+          allow="autoplay; encrypted-media"
+          allowfullscreen>
+        </iframe>
+      </div>
+    </section>
+
+    <div id="sectionBanner" class="mb-10 p-6 bg-white/70 dark:bg-mithi-blue/70 backdrop-blur-md border-2 border-mithi-gold/30 rounded-2xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-sm">
+      <div>
+        <div class="flex items-center space-x-3">
+          <span id="sectionIndicatorBadge" class="px-3 py-1 bg-mithi-crimson text-white font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm">Viewing All</span>
+
+          <h2 id="sectionTitle" class="font-serif text-xl sm:text-2xl font-bold text-mithi-blue dark:text-white">All Published Content</h2>
+        </div>
+
+        <p id="sectionSubtext" class="text-xs text-stone-600 dark:text-stone-300 mt-2">
+          Select a section or subsection from the navigation to filter publications.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2 text-xs">
+        <button onclick="filterCategory('Filipino')" id="btn-filipino-all" class="px-3 py-1.5 bg-stone-200/80 dark:bg-mithi-blueLight hover:bg-mithi-crimson hover:text-white text-stone-800 dark:text-stone-200 rounded-full font-semibold transition border border-stone-300 dark:border-mithi-gold/30">
+          Filipino Section
+        </button>
+
+        <button onclick="filterCategory('Balita')" id="btn-balita" class="px-3 py-1.5 bg-stone-200/80 dark:bg-mithi-blueLight hover:bg-mithi-crimson hover:text-white text-stone-800 dark:text-stone-200 rounded-full font-semibold transition border border-stone-300 dark:border-mithi-gold/30 flex items-center gap-1.5">
+          <i class="fa-solid fa-newspaper text-[10px] text-mithi-crimson"></i> Balita
+        </button>
+
+        <button onclick="filterCategory('Kolum')" id="btn-kolum" class="px-3 py-1.5 bg-stone-200/80 dark:bg-mithi-blueLight hover:bg-mithi-crimson hover:text-white text-stone-800 dark:text-stone-200 rounded-full font-semibold transition border border-stone-300 dark:border-mithi-gold/30 flex items-center gap-1.5">
+          <i class="fa-solid fa-pen-nib text-[10px] text-mithi-gold"></i> Kolum
+        </button>
+
+        <button onclick="filterCategory('English')" id="btn-english" class="px-3 py-1.5 bg-stone-200/80 dark:bg-mithi-blueLight hover:bg-mithi-blue hover:text-white text-stone-800 dark:text-stone-200 rounded-full font-semibold transition border border-stone-300 dark:border-mithi-gold/30">
+          English Section
+        </button>
+
+        <button onclick="filterCategory('Feature')" id="btn-feature" class="px-3 py-1.5 bg-stone-200/80 dark:bg-mithi-blueLight hover:bg-mithi-blue hover:text-white text-stone-800 dark:text-stone-200 rounded-full font-semibold transition border border-stone-300 dark:border-mithi-gold/30 flex items-center gap-1.5">
+          <i class="fa-solid fa-star text-[10px] text-sky-500"></i> Feature
+        </button>
+
+        <button onclick="filterCategory('Editorial')" id="btn-editorial" class="px-3 py-1.5 bg-stone-200/80 dark:bg-mithi-blueLight hover:bg-mithi-blue hover:text-white text-stone-800 dark:text-stone-200 rounded-full font-semibold transition border border-stone-300 dark:border-mithi-gold/30 flex items-center gap-1.5">
+          <i class="fa-solid fa-quote-left text-[10px] text-mithi-gold"></i> Editorial
+        </button>
+      </div>
+    </div>
+
+    <section class="py-6">
+      <div id="articlesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+    </section>
+  </main>
+
+  <section id="team" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 w-full">
+    <div class="text-center mb-14">
+      <span class="inline-flex items-center gap-2 px-4 py-1.5 bg-mithi-crimson text-white font-mono text-[10px] font-bold uppercase tracking-widest rounded-full shadow-sm">
+        <i class="fa-solid fa-users"></i> The People Behind MITHI
+      </span>
+
+      <h2 class="font-serif text-3xl sm:text-5xl font-extrabold text-mithi-blue dark:text-white mt-5 leading-tight">
+        Meet the Team
+      </h2>
+
+      <p class="text-sm sm:text-base text-stone-600 dark:text-stone-300 max-w-2xl mx-auto mt-4 leading-relaxed">
+        MITHI is created by a group of student writers, researchers, editors, and creators who believe that mental health, culture, and society deserve deeper conversations.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+      <article class="member-card bg-white/80 dark:bg-mithi-blue/60 backdrop-blur-sm border border-stone-200 dark:border-mithi-blueLight rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300">
+        <div class="relative h-56 overflow-hidden bg-mithi-blue">
+          <img
+            src="https://scontent.fmnl8-3.fna.fbcdn.net/v/t1.15752-9/887076367_2142168733102316_3811230847635722535_n.jpg?_nc_cat=109&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeEG3PfJkjOAE5xWd2JSqO6ix9MLDdk7mh7H0wsN2TuaHow6JGnT7wgrHCbyLugIhgpGoGnR7SI4mMK1-7dedlCU&_nc_ohc=Lv8zwJPk6ysQ7kNvwGpX23r&_nc_oc=Adoy00VpNjnM2Tt0jdeoXkwGI6j_9EobyMKuIgSjLh69uGwmhVjpgd-IMZArZ7_QLO8&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl8-3.fna&_nc_ss=7a22e&oh=03_Q7cD6wGgbDBgmONdtyRle-dajmvCcEcAMqS2SqEdSmRmBH06Vw&oe=6B1547B5"
+            alt="Andrei Edrick C. Pati"
+            class="member-photo w-full h-full object-cover transition-transform duration-500"
+          >
+
+          <div class="absolute inset-0 bg-gradient-to-t from-mithi-deepNavy/90 via-transparent to-transparent"></div>
+
+          <span class="absolute bottom-4 left-4 px-3 py-1 bg-mithi-gold text-mithi-blue text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
+            News Writer
+          </span>
+        </div>
+
+        <div class="p-6">
+          <h3 class="font-serif text-xl font-bold text-mithi-blue dark:text-white">
+            Andrei Edrick C. Pati
+          </h3>
+
+          <p class="text-xs font-mono uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mt-1 mb-3">
+            Editor-in-chief
+            Balita Writer
+            Editorial Writer
+            Copyreader
+          </p>
+
+          <p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            Andrei writes news articles that explore mental health issues and their impact on Filipino society.
+          </p>
+        </div>
+      </article>
+
+      <article class="member-card bg-white/80 dark:bg-mithi-blue/60 backdrop-blur-sm border border-stone-200 dark:border-mithi-blueLight rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300">
+        <div class="relative h-56 overflow-hidden bg-mithi-blue">
+          <img
+            src="https://scontent.fmnl40-1.fna.fbcdn.net/v/t1.15752-9/892557680_1111104761773649_1831384064295091073_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=100&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeGHlN1lKLYdbrem5gmKVT6rIZe83V0PTIQhl7zdXQ9MhM7lPGa-OvPi5Obr8i-Nf7b7633cj3C0S_Lc5aE9OYe_&_nc_ohc=Ez_GblRK0YIQ7kNvwHR0-8S&_nc_oc=AdrX__aQ6KUQWYvKHiqUr40HDxO48bWBvjcw5ZBvOgQLdgzF0Sz6ykpNg-sE5qRJ8rA&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl40-1.fna&_nc_ss=7a22e&oh=03_Q7cD6wEAfTpjqhuxfMX9iOU228XwaPIz3NBJeuKByzZDncPe2g&oe=6B15762B"
+            alt="Uriel Nathan Gabriel S. Habal"
+            class="member-photo w-full h-full object-cover transition-transform duration-500"
+          >
+
+          <div class="absolute inset-0 bg-gradient-to-t from-mithi-deepNavy/90 via-transparent to-transparent"></div>
+
+          <span class="absolute bottom-4 left-4 px-3 py-1 bg-mithi-gold text-mithi-blue text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
+            Kolum Writer
+            News Writer
+            Feature Writer
+            Copyreader
+          </span>
+        </div>
+
+        <div class="p-6">
+          <h3 class="font-serif text-xl font-bold text-mithi-blue dark:text-white">
+            Uriel Nathan Gabriel S. Habal
+          </h3>
+
+          <p class="text-xs font-mono uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mt-1 mb-3">
+            Kolum Writer
+            News Writer
+            Feature Writer
+            Copyreader
+          </p>
+
+          <p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            Uriel writes personal columns that challenge stigma and encourage honest conversations about anxiety and mental health.
+          </p>
+        </div>
+      </article>
+
+      <article class="member-card bg-white/80 dark:bg-mithi-blue/60 backdrop-blur-sm border border-stone-200 dark:border-mithi-blueLight rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300">
+        <div class="relative h-56 overflow-hidden bg-mithi-blue">
+          <img
+            src="https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.15752-9/889012971_1908785247152090_7008990986613890960_n.jpg?_nc_cat=106&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeHZLpRxsKAzEG2g0LxayUlPt2dMpMlmp7m3Z0ykyWanuWE71vdOqRpWUlsaV0IkuxDD3ecPZBqiP_Zc_jewX3lF&_nc_ohc=hDHuSJWgpVsQ7kNvwFnNYxP&_nc_oc=AdrbI8OSHqRnX4NeqJ9UhHcljZUOmDHDNpBHf55lrHt7oLt1BXy-vg1aOgeY5wlZyFg&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl4-3.fna&_nc_ss=7a22e&oh=03_Q7cD6wGeDBAAlCc9wQMOj-boOOmpY6fZzGJ8Uy3SDZFSPnKa9w&oe=6B156E1D"
+            alt="Gian Carlwin Torino"
+            class="member-photo w-full h-full object-cover transition-transform duration-500"
+          >
+
+          <div class="absolute inset-0 bg-gradient-to-t from-mithi-deepNavy/90 via-transparent to-transparent"></div>
+
+          <span class="absolute bottom-4 left-4 px-3 py-1 bg-mithi-gold text-mithi-blue text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
+            Kolum Writer
+          </span>
+        </div>
+
+        <div class="p-6">
+          <h3 class="font-serif text-xl font-bold text-mithi-blue dark:text-white">
+            Gian Carlwin Torino
+          </h3>
+
+          <p class="text-xs font-mono uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mt-1 mb-3">
+            Kolum Writer
+          </p>
+
+          <p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            Gian writes opinion pieces that examine the social barriers preventing people from seeking mental health support.
+          </p>
+        </div>
+      </article>
+
+      <article class="member-card bg-white/80 dark:bg-mithi-blue/60 backdrop-blur-sm border border-stone-200 dark:border-mithi-blueLight rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300">
+        <div class="relative h-56 overflow-hidden bg-mithi-blue">
+          <img
+            src="https://scontent.fmnl25-2.fna.fbcdn.net/v/t1.15752-9/890410484_1149925774188654_1274594934934044258_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=105&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeGwM7GzVmdOD9mQTde_PBJT4HSzY8MWmD7gdLNjwxaYPhNniKlezCOAnUB-0SQVT62XnxcjL3CIim6wmjr8V_BS&_nc_ohc=X-bfqtibfHAQ7kNvwF2ov8Q&_nc_oc=AdoK3X4f-vDczrSKmEBPYZw1q2Ff9tTkz5Ty0aaodRoqlzMBRwALT8Kdh388tDZOYWs&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl25-2.fna&_nc_ss=7a22e&oh=03_Q7cD6wFJhPXMg-jFEzRbndtjbKRs4fnnPqsk368tHUZBI0WsIQ&oe=6B155DB4"
+            alt="Matteo Randolph M. Tartana"
+            class="member-photo w-full h-full object-cover transition-transform duration-500"
+          >
+
+          <div class="absolute inset-0 bg-gradient-to-t from-mithi-deepNavy/90 via-transparent to-transparent"></div>
+
+          <span class="absolute bottom-4 left-4 px-3 py-1 bg-mithi-gold text-mithi-blue text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
+            Editorial Writer
+          </span>
+        </div>
+
+        <div class="p-6">
+          <h3 class="font-serif text-xl font-bold text-mithi-blue dark:text-white">
+            Matteo Randolph M. Tartana
+          </h3>
+
+          <p class="text-xs font-mono uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mt-1 mb-3">
+            Editorial Writer
+          </p>
+
+          <p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            Matteo writes editorials that call for stronger systems in education, technology, and youth mental health support.
+          </p>
+        </div>
+      </article>
+
+      <article class="member-card bg-white/80 dark:bg-mithi-blue/60 backdrop-blur-sm border border-stone-200 dark:border-mithi-blueLight rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300">
+        <div class="relative h-56 overflow-hidden bg-mithi-blue">
+          <img
+            src="https://scontent.fmnl8-6.fna.fbcdn.net/v/t1.15752-9/890236133_3504784696370010_6778246796651196957_n.jpg?stp=dst-jpg_p480x480_tt6&_nc_cat=107&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeGh4Ff8Rk0c-jgnn48J46lXgV7JwdTrLRaBXsnB1OstFrGEUWjjK40sRZgRqLweAG9rvDGExHMg8ivXTUn56WtL&_nc_ohc=S2LZ0d9r8e4Q7kNvwHPj09f&_nc_oc=AdqhMvdETHpbNfF35DboaAdK8IeMc4z-rB8qiVsTdOfBRDiJIvg2HCDRlx0K0sWgorM&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl8-6.fna&_nc_ss=7a22e&oh=03_Q7cD6wFzdWKRLcKeMkpPirQ-5wAsQCo3qDA09cBIyF2H0Z_dMw&oe=6B1557E8"
+            alt="Jared Rafael Alarcon"
+            class="member-photo w-full h-full object-cover transition-transform duration-500"
+          >
+
+          <div class="absolute inset-0 bg-gradient-to-t from-mithi-deepNavy/90 via-transparent to-transparent"></div>
+
+          <span class="absolute bottom-4 left-4 px-3 py-1 bg-mithi-gold text-mithi-blue text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
+            Feature Writer
+          </span>
+        </div>
+
+        <div class="p-6">
+          <h3 class="font-serif text-xl font-bold text-mithi-blue dark:text-white">
+            Jared Rafael Alarcon
+          </h3>
+
+          <p class="text-xs font-mono uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mt-1 mb-3">
+            Feature Writer
+          </p>
+
+          <p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            Jared creates feature stories that bring attention to the silent struggles of young people experiencing anxiety.
+          </p>
+        </div>
+      </article>
+
+      <article class="member-card bg-white/80 dark:bg-mithi-blue/60 backdrop-blur-sm border border-stone-200 dark:border-mithi-blueLight rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition duration-300">
+        <div class="relative h-56 overflow-hidden bg-mithi-blue">
+          <img
+            src="https://scontent.fmnl40-1.fna.fbcdn.net/v/t1.15752-9/892170594_1966316537681777_2514183405526442349_n.jpg?stp=dst-jpg_s480x480_tt6&_nc_cat=101&_nc_map=urlgen_bucketless&ccb=1-7&_nc_sid=0024fc&_nc_eui2=AeEvewHIoz5O8c7KBX179C0F3nnvsol7IGfeee-yiXsgZxpRqXXbwhSCq8-yTrjTS0SiShEWGu_j2DT1y7kDVh1e&_nc_ohc=hUCKf_y0QVIQ7kNvwH4zF-8&_nc_oc=AdpiMBj8-E-VqtJHyVuHCn0tErAYgSsCyIcRbHF5GPG3Y8fUj0M9vG_TNRrHKnxvNpo&_nc_ad=z-m&_nc_cid=0&_nc_zt=23&_nc_ht=scontent.fmnl40-1.fna&_nc_ss=7a22e&oh=03_Q7cD6wGslqYwk42KUJAKwTvo8nYri8n15Ejipz4Zr_uEjiiaLQ&oe=6B156644"
+            alt="Joby Chip Lim"
+            class="member-photo w-full h-full object-cover transition-transform duration-500"
+          >
+
+          <div class="absolute inset-0 bg-gradient-to-t from-mithi-deepNavy/90 via-transparent to-transparent"></div>
+
+          <span class="absolute bottom-4 left-4 px-3 py-1 bg-mithi-gold text-mithi-blue text-[10px] font-mono font-bold uppercase tracking-wider rounded-full">
+                Layout
+                Video Editor
+          </span>
+        </div>
+
+        <div class="p-6">
+          <h3 class="font-serif text-xl font-bold text-mithi-blue dark:text-white">
+            Joby Chip Lim
+          </h3>
+
+          <p class="text-xs font-mono uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mt-1 mb-3">
+            Layout
+            Video Editor
+          </p>
+
+          <p class="text-sm text-stone-600 dark:text-stone-300 leading-relaxed">
+            Joby supports the publication through editing, content development, and creative collaboration.
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <div class="mt-16 bg-mithi-blue dark:bg-mithi-deepNavy/80 border-2 border-mithi-gold/40 rounded-3xl p-8 sm:p-12 text-center text-white shadow-2xl">
+      <i class="fa-solid fa-feather-pointed text-3xl text-mithi-gold mb-4"></i>
+
+      <h3 class="font-serif text-2xl sm:text-4xl font-extrabold leading-tight">
+        One Publication, Many Voices
+      </h3>
+
+      <p class="text-sm sm:text-base text-stone-300 max-w-3xl mx-auto mt-4 leading-relaxed">
+        Each member of MITHI brings a different perspective, but we share one goal: to create space for honest stories, meaningful questions, and compassionate conversations about the issues that shape our lives.
+      </p>
+    </div>
+  </section>
+
+  <div id="aboutModal" class="fixed inset-0 bg-mithi-deepNavy/80 backdrop-blur-md z-50 hidden flex justify-center items-center p-4 overflow-y-auto">
+    <div class="bg-white dark:bg-mithi-blue w-full max-w-2xl rounded-2xl shadow-2xl p-6 sm:p-10 border-2 border-mithi-gold/40 relative">
+      <button onclick="closeAboutModal()" class="absolute top-6 right-6 text-stone-400 hover:text-mithi-crimson dark:hover:text-mithi-gold text-lg">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <div class="flex items-center space-x-3 mb-6">
+        <img
+          src="https://lh3.googleusercontent.com/d/1ZSoZj2m8iUk_o85CI_kMntUqnmGpWgbq"
+          alt="MITHI Logo"
+          class="h-10 w-auto object-contain"
+          onerror="this.onerror=null; this.src='https://drive.google.com/thumbnail?id=1ZSoZj2m8iUk_o85CI_kMntUqnmGpWgbq&sz=w500'; this.onerror=function(){this.style.display='none'};"
+        >
+
+        <div>
+          <h2 class="font-display font-extrabold text-2xl tracking-wider text-mithi-blue dark:text-white uppercase">MITHI</h2>
+          <p class="text-xs text-mithi-crimson dark:text-mithi-gold font-mono font-bold">Journal of Inquiry &amp; Perspective</p>
+        </div>
+      </div>
+
+      <div class="space-y-4 font-body text-sm text-stone-800 dark:text-stone-200 leading-relaxed border-t border-stone-200 dark:border-mithi-blueLight pt-6">
+        <p class="drop-cap">
+          Ang <strong>MITHI</strong> ay isang malayang publikasyong nakatuon sa pagpapalalim ng kaisipan, pagsusuri ng mental na kalusugan, kultura, at sining sa parehong wikang Filipino at Ingles.
+        </p>
+
+        <p>
+          As an independent bilingual journal, <strong>MITHI</strong> bridges local perspectives and global dialogues. We publish longform investigations, news updates, critical columns, features, and editorial commentary across our dedicated <strong>Filipino Section (Balita &amp; Kolum)</strong> and <strong>English Section (Feature &amp; Editorial)</strong>.
+        </p>
+
+        <div class="bg-stone-50 dark:bg-mithi-deepNavy/80 p-5 rounded-xl border border-mithi-gold/40 mt-6 shadow-inner">
+          <h4 class="font-serif font-bold text-mithi-crimson dark:text-mithi-gold text-xs uppercase tracking-wider mb-2">Aming Layunin / Our Mission</h4>
+
+          <p class="text-xs text-stone-700 dark:text-stone-300 italic">
+            "Isulong ang malayang diskurso, itaguyod ang panitikang Filipino, at magbigay ng malalim na pagsusuri sa mga suliraning pandaigdig."
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight flex justify-end items-center">
+        <button onclick="closeAboutModal()" class="bg-mithi-crimson hover:bg-mithi-crimsonBright text-white text-xs px-5 py-2 rounded-full font-bold shadow-md transition">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="articleModal" class="fixed inset-0 bg-mithi-deepNavy/85 backdrop-blur-sm z-50 hidden flex justify-center items-center p-0 sm:p-4 overflow-y-auto">
+    <div class="bg-white dark:bg-mithi-blue w-full max-w-3xl min-h-screen sm:min-h-0 sm:max-h-[92vh] sm:rounded-2xl shadow-2xl overflow-y-auto relative flex flex-col justify-between border-2 border-mithi-gold/30">
+
+      <div class="sticky top-0 bg-white/95 dark:bg-mithi-blue/95 backdrop-blur-md px-6 py-3 border-b border-stone-200 dark:border-mithi-blueLight flex items-center justify-between z-20">
+        <div id="modalProgressBar" class="absolute top-0 left-0 h-1 bg-mithi-gold transition-all duration-100" style="width: 0%"></div>
+
+        <div class="flex items-center space-x-3 text-xs">
+          <span id="modalCategory" class="font-mono text-mithi-crimson dark:text-mithi-gold font-bold uppercase">Section</span>
+          <span class="text-stone-300 dark:text-stone-700">•</span>
+          <span id="modalReadTime" class="text-stone-500 dark:text-stone-400">Read Time</span>
+        </div>
+
+        <div class="flex items-center space-x-2">
+          <button onclick="adjustFontSize(-1)" class="w-7 h-7 rounded bg-stone-100 dark:bg-mithi-blueLight text-stone-700 dark:text-stone-300 text-xs font-bold hover:bg-stone-200 transition">A-</button>
+
+          <button onclick="adjustFontSize(1)" class="w-7 h-7 rounded bg-stone-100 dark:bg-mithi-blueLight text-stone-700 dark:text-stone-300 text-xs font-bold hover:bg-stone-200 transition">A+</button>
+
+          <button onclick="readArticleTTS()" id="ttsBtn" class="px-2.5 py-1 rounded bg-stone-100 dark:bg-mithi-blueLight text-stone-700 dark:text-stone-300 text-xs font-medium hover:bg-stone-200 transition flex items-center space-x-1">
+            <i class="fa-solid fa-volume-high text-mithi-gold"></i>
+            <span class="hidden sm:inline">Listen</span>
+          </button>
+
+          <button onclick="closeModal()" class="w-7 h-7 rounded bg-stone-100 dark:bg-mithi-blueLight text-stone-700 dark:text-stone-300 text-sm hover:bg-mithi-crimson hover:text-white transition">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="modalArticleBody" class="p-6 sm:p-10 font-body text-base sm:text-lg leading-relaxed text-stone-800 dark:text-stone-100"></div>
+
+      <div class="p-6 border-t border-stone-200 dark:border-mithi-blueLight bg-stone-50 dark:bg-mithi-deepNavy/60 flex items-center justify-between">
+        <div>
+          <h5 id="modalAuthorName" class="font-bold text-xs text-mithi-blue dark:text-white">Author</h5>
+          <p id="modalAuthorBio" class="text-[11px] text-stone-500 dark:text-stone-400">MITHI Writer</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="searchModal" class="fixed inset-0 bg-mithi-deepNavy/85 backdrop-blur-md z-50 hidden p-4 pt-20">
+    <div class="max-w-2xl mx-auto bg-white dark:bg-mithi-blue rounded-2xl shadow-2xl p-6 border-2 border-mithi-gold/40">
+      <div class="flex items-center justify-between border-b border-stone-200 dark:border-mithi-blueLight pb-3">
+        <div class="flex items-center space-x-3 w-full">
+          <i class="fa-solid fa-magnifying-glass text-mithi-gold"></i>
+
+          <input type="text" id="searchInput" oninput="handleSearch()" placeholder="Search MITHI in Filipino or English..." class="w-full bg-transparent text-sm focus:outline-none text-mithi-blue dark:text-white">
+        </div>
+
+        <button onclick="closeSearchModal()" class="text-stone-400 hover:text-mithi-crimson">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div id="searchResults" class="mt-4 max-h-80 overflow-y-auto space-y-3">
+        <p class="text-xs text-stone-400 text-center py-6">Type to search articles...</p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="bg-mithi-deepNavy/95 text-stone-300 py-12 border-t-2 border-mithi-gold/40 mt-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-10">
+
+        <div class="md:col-span-6 space-y-4">
+          <span class="font-display font-bold text-3xl tracking-widest text-white">MITHI</span>
+
+          <p class="text-xs leading-relaxed text-stone-300 max-w-sm">
+            G11-ST.PADRE PIO (GROUP2)<br>
+            PATI, ANDREI<br>
+            LIM, JOBY CHIP<br>
+            HABAL, URIEL<br>
+            TORINO, GIAN CARLWIN<br>
+            TARTANA, MATTEO<br>
+            ALARCON, JARED
+          </p>
+        </div>
+
+        <div class="md:col-span-6 space-y-3">
+          <h4 class="text-xs font-mono font-bold uppercase text-mithi-gold tracking-wider">Sections &amp; Info</h4>
+
+          <ul class="space-y-2 text-xs">
+            <li><a href="#" onclick="openAboutModal()" class="hover:text-mithi-gold transition">About MITHI</a></li>
+
+            <li><a href="#team" class="hover:text-mithi-gold transition font-semibold text-white">Team Members</a></li>
+
+            <li><a href="#" onclick="filterCategory('Filipino')" class="hover:text-mithi-gold transition font-semibold text-white">Filipino Section</a></li>
+
+            <li class="pl-3"><a href="#" onclick="filterCategory('Balita')" class="hover:text-mithi-gold transition text-stone-400 flex items-center gap-1"><i class="fa-solid fa-newspaper text-[9px] text-mithi-crimson"></i> Balita</a></li>
+
+            <li class="pl-3"><a href="#" onclick="filterCategory('Kolum')" class="hover:text-mithi-gold transition text-stone-400 flex items-center gap-1"><i class="fa-solid fa-pen-nib text-[9px] text-mithi-gold"></i> Kolum</a></li>
+
+            <li><a href="#" onclick="filterCategory('English')" class="hover:text-mithi-gold transition font-semibold text-white mt-1 block">English Section</a></li>
+
+            <li class="pl-3"><a href="#" onclick="filterCategory('Feature')" class="hover:text-mithi-gold transition text-stone-400 flex items-center gap-1"><i class="fa-solid fa-star text-[9px] text-sky-400"></i> Feature</a></li>
+
+            <li class="pl-3"><a href="#" onclick="filterCategory('Editorial')" class="hover:text-mithi-gold transition text-stone-400 flex items-center gap-1"><i class="fa-solid fa-quote-left text-[9px] text-mithi-gold"></i> Editorial</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const articles = [
+      {
+        id: 'balita-jillian-ward',
+        title: 'Anxiety, Naging Dahilan ni Jillian Ward Upang Pag-isipang Iwan ang Showbiz',
+        category: 'Filipino',
+        subcategory: 'Balita',
+        date: '2026',
+        readTime: '2 min read',
+        author: 'Andrei Edrick C. Pati',
+        authorBio: 'Andrei Edrick C. Pati',
+        image: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?auto=format&fit=crop&q=80&w=1000',
+        excerpt: 'Inamin ni Jillian Ward na ilang beses na niyang sinubukang iwan ang showbiz dahil sa anxiety.',
+        content: `
+          <p class="drop-cap mb-4">Maynila, Pilipinas – Inamin ng aktres na si Jillian Ward noong Enero 8, 2025, na ilang beses na niyang sinubukang itigil o iwan ang showbiz dahil sa nararanasang anxiety, ayon sa ulat ng GMA News.</p>
+
+          <p class="mb-4">Sa kaniyang panayam sa 24 Oras, ikinuwento ng aktres ang iba’t ibang pagkakataon na nahihirapan siyang harapin ang atensyon ng publiko. Ayon kay Sparkle Star, habang siya ay lumalaki, hindi siya marunong tumanggi o magsabi ng ‘hindi’ noon.</p>
+
+          <p class="mb-4">Makikita ito sa sitwasyon na kaniyang ibinahagi noong siya ay labing-tatlo. Pumanaw ang kaniyang lolo at siya ay umiiyak, ngunit may lumapit upang magpa-selfie. Bagama’t nagluluksa siya, pumayag pa rin siya dahil hindi pa siya marunong tumanggi sa mga taong humihiling sa kanya.</p>
+
+          <p class="mb-4">Dahil sa kaniyang iba’t ibang karanasan, natutunan ni Jillian na mahalaga ang pagkakaroon ng mga hangganan upang protektahan ang sariling emosyonal at kalusugang pangkaisipan. Ibinahagi rin niya, “Somehow, ‘yun po ‘yung natututunan ko ngayon na kailangan mo rin ng boundaries to protect your emotional, mental health.”</p>
+
+          <p class="mb-4">Sa kaniyang pagbabahagi, ipinapakita niya na mahalaga na matuto tayong tumanggi at magtakda ng mga hangganan para sa ating ikabubuti, lalo na kapag ang sitwasyon ay nakakaapekto sa ating kapakanan. Ayon sa World Health Organization, tinatayang 470 milyong tao sa buong mundo ang nagkaroon ng anxiety disorder noong 2023. Ang kondisyong ito ay maaaring magdulot ng labis na takot at pag-aalala na mahirap kontrolin. Bukod dito, nakakaapekto ito sa konsentrasyon, pagtulog, at pang-araw-araw na gawain ng isang tao.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> Mga Sanggunian / References
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>GMA Integrated News. (2025, January 8). Jillian Ward reveals trying to quit showbiz several times. GMA News Online. https://www.gmanetwork.com/news/showbiz/chikaminute/932276/jillian-ward-showbiz/story/</li>
+              <li>World Health Organization. (2026, September 15). Anxiety disorders. https://www.who.int/en/news-room/fact-sheets/detail/anxiety-disorders</li>
+            </ul>
+          </div>
+        `
+      },
+
+      {
+        id: 'balita-stress-pinoy',
+        title: 'Stress at Anxiety ng mga Pilipino, Lalong Tumitindi: Problema sa Pera ang Isa sa Pangunahing Dahilan',
+        category: 'Filipino',
+        subcategory: 'Balita',
+        date: '2026',
+        readTime: '4 min read',
+        author: 'Uriel Nathan Gabriel S. Habal',
+        authorBio: 'Uriel Nathan Gabriel S. Habal',
+        image: 'https://media.philstar.com/photos/2025/03/04/19_2025-03-04_18-49-13.jpg',
+        excerpt: 'Mas marami nang Pilipino ang nakararamdam ng stress, at ang problema sa pera ang isa sa pangunahing dahilan nito.',
+        content: `
+          <p class="drop-cap mb-4">Mas marami nang Pilipino ang halos araw-araw na nakararamdam ng stress, isang bigat na maaaring humantong sa anxiety at depresyon, at pera ang numero unong dahilan nito, ayon sa survey ng Social Weather Stations noong Setyembre 2025. Inilabas ang resulta kasabay ng paggunita sa World Mental Health Day tuwing Oktubre 10.</p>
+
+          <p class="mb-4">Sa survey na ginawa noong Setyembre 24 hanggang 30, 2025, na may 1,500 nasa hustong gulang na kalahok sa buong bansa, 34% ang umamin na madalas silang stressed. Pitong puntos itong mas mataas kaysa sa 27% naitala noong Disyembre 2019. Tatlumpu’t 2% naman ang paminsan-minsan lang makaramdam nito, 30% ang bihira, at 4% lang ang nagsabing hindi sila kailanman na-stress.</p>
+
+          <p class="mb-4">Pagdating sa pinagmumulan, nangunguna ang pera. Higit kalahati, o 53%, ang nagsabing “malaking” stress ang dulot ng kanilang kalagayang pinansyal. Sumunod ang kalusugan, 42%; trabaho o pag-aaral, 39%; at pamilya, 38%.</p>
+
+          <p class="mb-4">Hindi pantay ang bigat ng stress sa bawat lugar at kasarian. Sa Metro Manila, kalahati ng mga residente ang madalas makaramdam nito. Mas madalas din itong maranasan ng kababaihan, na 41%, kaysa sa kalalakihan, na 27%.</p>
+
+          <p class="mb-4">Pareho ang kuwento sa ulat ng AXA noong 2025. Halos pito sa bawat sampung Pilipino ang may nararamdamang anxiety, stress, o depresyon, kahit banayad lang, at isa ito sa pinakamataas na bilang sa buong mundo. Mas apektado ang mga edad 18 hanggang 34 kaysa sa mga kaedad nila sa ibang bansa. Kawalang-katiyakan sa pera at trabaho ang pinakamalaking dahilan, na binanggit ng 76% ng mga Pilipino, kumpara sa 53% sa buong mundo.</p>
+
+          <p class="mb-4">Ramdam din ito sa mga tawag sa Mental Health Hotline ng Department of Health sa National Center for Mental Health. Mula Disyembre 21, 2025 hanggang Enero 2, 2026, umabot sa 961 ang tumawag, at kabilang ang anxiety sa mga pangunahing dahilan, kasama ng problema sa relasyon at mga sintomas ng depresyon.</p>
+
+          <p class="mb-4">Ang problema, kakaunti ang mga propesyonal na maaaring lapitan. Sa ulat ng World Health Organization noong 2021, 548 psychiatrist at 133 psychologist lang ang naitala sa bansang may mahigit 110 milyong tao. Ayon sa DOH noong Setyembre, mababang sahod ang isa sa mga dahilan ng kakulangang ito.</p>
+
+          <p class="mb-4">May mga hakbang naman ang pamahalaan. Naglaan ang 2026 national budget ng ₱2.9 bilyon para sa School-Based Mental Health program at sa pagbuo ng Learner Wellness Division. Sinabi rin ng DOH na ipagpapatuloy sa 2027 ang programa nitong nagbibigay ng gamot para sa mental health sa 1,296 lugar, o halos 64% ng mga lungsod at bayan sa bansa.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> Mga Sanggunian / References
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>Social Weather Stations. (2025, October 9). Social Weather Report: 34% of adult Filipinos stressed “frequently” in daily life, up from 27% in December 2019. https://sws.org.ph/?p=2091</li>
+              <li>Jerra Mae Librea. (2025, October 10). SWS: Stress rising among Filipinos; finances to blame. SunStar Publishing Inc. https://www.sunstar.com.ph/cebu/sws-stress-rising-among-filipinos-finances-to-blame</li>
+              <li>Ortega, J. (2025, June 9). AI self-help tools helping young Filipinos amid rising mental health struggles. PIRA, Inc. https://www.pirainc.com/post/ai-self-help-tools-helping-young-filipinos-amid-rising-mental-health-struggles</li>
+            </ul>
+          </div>
+        `
+      },
+
+      {
+        id: 'kolum-pagod',
+        title: 'Pagod',
+        category: 'Filipino',
+        subcategory: 'Kolum',
+        date: '2026',
+        readTime: '4 min read',
+        author: 'Gian Carlwin Z. Torino',
+        authorBio: 'Gian Carlwin Z. Torino',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-tnE4MwaHCM_TNWBdS6y7ycWvdpkIBqs_BfWCBCPiOg&s=10',
+        excerpt: 'Sa likod ng bawat ngiti ay maaaring may mga alalahaning hindi kayang sabihin ng isang tao.',
+        content: `
+          <p class="drop-cap mb-4">Sa likod ng bawat ngiti ay maaaring may mga alalahaning hindi kayang sabihin ng isang tao.</p>
+
+          <p class="mb-4">“Magdasal ka lang,” “Nasa isip mo lang ’yan,” o “Dami mong arte.” Ito ang mga karaniwang salitang sumasalubong sa isang taong naglalakas-loob na sabihin ang kaniyang matinding kaba at pag-aalala. Sa ating lipunan, madalas pa ring itinuturing na kaartehan, katamaran, o kawalan ng pananampalataya ang hirap na pinagdaanan ng isang taong may anxiety. Dahil sa takot na mahusgahan at mabansagang mahina, marami sa ating mga kabataan at manggagawa ang pinipiling manahimik na lamang, magsuot ng ngiti sa harap ng iba, at magtiis sa dilim.</p>
+
+          <p class="mb-4">Ang anxiety disorder ay hindi simpleng kaba bago ang isang pagsusulit o panayam. Ito ay isang tunay at medikal na kondisyon kung saan ang utak at katawan ay patuloy na nakararanas ng matinding takot, mabilis na tibok ng dibdib, pamamawis ng palad, at hirap sa paghinga kahit walang malinaw na panganib. Kapag ang isang tao ay may lagnat o altapresyon, mabilis tayong nag-aabot ng gamot at nagpapasuri sa doktor. Hindi natin sinasabi sa kaniyang “isip-isip lang ’yan.” Bakit kapag ang sistema ng nerbiyos at utak ang nahihirapan, tila kasalanan pa ng pasyente at itinuturing na kapabayaan sa sarili?</p>
+
+          <p class="mb-4">May apat na pangunahing dahilan kung bakit napakahirap humingi ng tulong at gumaling mula sa anxiety sa ating bansa.</p>
+
+          <p class="mb-4"><strong>Una, ang stigma at ang kultura ng “toxic positivity.”</strong> May ugali tayong mga Pilipino na pilitin ang bawat isa na maging matatag at ngumiti sa kabila ng hirap. Mas madaling magpaalam sa trabaho o paaralan dahil sa ubo at trangkaso kaysa sabihing kailangan ng pahinga para sa mental health. Ang pilit na pagpapanggap na maayos ang lahat ay lalo lamang nagpapabigat sa nararamdaman ng isang tao.</p>
+
+          <p class="mb-4"><strong>Pangalawa, ang mataas na gastos sa pagpapagamot.</strong> Ang pagpapatingin sa isang pribadong psychologist o psychiatrist, pati na rin ang pagbili ng mga resertadong gamot, ay napakamahal. Ang bawat session ay kayang lumimas sa lingguhang badyet ng isang pamilyang kumikita ng minimum wage. Kapag ang karapatang gumaling ay nakatali sa kapal ng bulsa, itinutulak natin ang mahihirap na magtiis na lamang hanggang sa tuluyang bumigay ang kanilang kalusugan.</p>
+
+          <p class="mb-4"><strong>Pangatlo, ang kakulangan ng suporta sa pinakamababang antas ng gobyerno.</strong> Bagama’t mayroon tayong Philippine Mental Health Act o RA 11036, nananatili ang malaking agwat sa pagpapatupad nito. Bihira ang mga barangay health center na may nakatalagang mental health professional o libreng gamot para sa anxiety. Ang batas na hindi nararamdaman sa komunidad ay nananatiling palamuti lamang sa papel.</p>
+
+          <p class="mb-4"><strong>Pang-apat, ang mababaw na pag-unawa sa “self-care.”</strong> Hindi masamang magbawas ng oras sa social media o maglakad-lakad sa umaga, ngunit hindi ito sapat na solusyon para sa matinding kondisyon. Kapag ang tanging payo sa taong may anxiety ay “mag-relax ka lang,” inililipat natin ang buong responsibilidad sa tao sa halip na ayusin ang sistemang dapat ay pumoprotekta sa kaniya.</p>
+
+          <p class="mb-4">Kailangan nating baguhin ang ganitong sistema sa pamamagitan ng kolektibong pagkilos. Ang mga paaralan ay dapat maglagay ng sapat at abot-kayang guidance counselors. Ang mga kompanya ay kailangang magpatupad ng makatarungang oras ng paggawa at “right to disconnect” pagkatapos ng trabaho. Ang pamahalaan naman ay dapat maglaan ng sapat na pondo upang gawing libre at abot-kaya ang serbisyong pangkaisipan sa bawat barangay.</p>
+
+          <p class="mb-4">Kung nakararanas ka ng matinding anxiety sa kasalukuyan, tandaan mong hindi ka mahina at hindi mo ito gawa-gawa lamang. Ang paghingi ng tulong sa propesyonal o sa isang pinagkakatiwalaang tao ay hindi tanda ng pagkatalo, kundi ang pinakamatapang na hakbang na maaari mong gawin para sa iyong sarili. Ang tunay na lakas ng lipunan ay hindi nasusukat sa kung gaano natin kakayang magtiis sa hirap, kundi sa kung paano natin inaalagaan ang mga taong nangangailangan ng tulong at kalinga.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> Mga Sanggunian / References
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>Untitled image [Image]. (n.d.). Google Images. https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-tnE4MwaHCM_TNWBdS6y7ycWvdpkIBqs_BfWCBCPiOg&s=10</li>
+            </ul>
+          </div>
+        `
+      },
+
+      {
+        id: 'kolum-hindi-ka-mahina',
+        title: 'Hindi Ka Mahina',
+        category: 'Filipino',
+        subcategory: 'Kolum',
+        date: '2026',
+        readTime: '3 min read',
+        author: 'Uriel Nathan Gabriel S. Habal',
+        authorBio: 'Uriel Nathan Gabriel S. Habal',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-tnE4MwaHCM_TNWBdS6y7ycWvdpkIBqs_BfWCBCPiOg&s=10',
+        excerpt: 'Hindi Ka Mahina',
+        content: `
+          <p class="drop-cap mb-4">Sa likod ng bawat ngiti ay maaaring may mga alalahaning hindi kayang sabihin ng isang tao.</p>
+
+          <p class="mb-4">Madaling araw na at hindi ka pa rin tulog dahil sa pag-iisip sa mga bagay-bagay na hindi pa naman nangyayari. Ito ay nag-uwi sa’yo na kulangin ang tulog. Kinabukasan, napansin ng iyong mga kaibigan ang halatang kakulangan sa tulog at nagtanong kung “Okay ka lang?” Tumugon ka naman ng “Okay lang ako.” Hindi ito maituturing na bastang pagsisinungaling, ang mga aksyong ito ay ginagawa lamang upang hindi maging pabigat sa iba. Kung ikaw ay nakararanas nito sa kasalukuyan, kailan mo sasabihin ang totoo?</p>
+
+          <p class="mb-4">Normal naman ang pagkakaroon ng kaba bago magkaroon ng presentasyon, exam, o resulta ng medical test. Pero kapag ang kabang nararamdaman ay patuloy pa ring nararamdaman kahit wala namang rason kung bakit kabahan, iba na ’yan. Hindi ito senyales ng “arte.” Hindi ito pagkawala o pagkukulang sa pananampalataya. Ito ay pagkakaroon ng sakit sa mentalidad.</p>
+
+          <p class="mb-4">Malaki ang saklaw nito. Tinataya ng World Health Organization na may 5.8% ng populasyon sa mundo ang may anxiety disorder, at noong 2023 ay umaabot sa 470 milyong tao ang nabubuhay dito. Sa Pilipinas, tinatayang 11.3% hanggang 11.6% ng populasyon, mga 12.5 milyong Pilipino, ang may kondisyon sa kalusugang pangkaisipan, at pangunahin dito ang depresyon at anxiety.</p>
+
+          <p class="mb-4">Dapat ituring ang anxiety bilang isyung pangkalusugan at isyung pampublikong patakaran; hindi bilang personal na kahinaan, at hindi negosyo para sa “positive thinking.” Kailangan natin ng serbisyo, hindi lang payo. Ang doktor ang kailangan, hindi kakulangan sa tamang tulong ang motivational quote.</p>
+
+          <p class="mb-4">Ang anxiety ay hindi patunay ng pagkukulang sa lakas ng loob, bagkus isang totoong kondisyon na kailangang tingnan ng isang propesyonal. Ang tahimik na pagtitiis at “magdasal ka na lang at mawawala ’yan” na payo ay hindi solusyon, sapagkat maaari itong makapagpalaki ng problema.</p>
+
+          <p class="mb-4">May apat na hadlang na nagiging problema upang hindi matulungan ang mga taong nakararanas ng anxiety. Una na dito ang stigma. Alam na ng mga Pilipino na mayroong anxiety dahil sila mismo ay nakakaranas nito. Ang problema ay kapag nagpatingin ka sa doktor, maaaring sabihin ng ilan sa iyong kamag-anak na “Bakit ka pa magpapatingin, wala ka namang sakit.”</p>
+
+          <p class="mb-4">Sa trabaho, kapansin-pansin pa rin ang stigma. Ikinahihiya ng mga nagtatrabaho ang humingi ng medical certificate kaysa kung sila ay nagkaroon ng sick leave dahil sa ubo. Ang batas mismo ay kumikilala sa pangangailangang ito noong 2019, nang nilagdaan ang Philippine Mental Health Act o RA 11036 na nag-aatas ng mental health services sa lahat ng antas ng sistema ng kalusugan. Ngunit gaya ng pinuna ng mga mananaliksik, marami pa rin itong butas sa implementasyon, partikular sa pag-access ng mga komunidad.</p>
+
+          <p class="mb-4">Pangalawa, kakulangan sa salapi. Nakalulungkot isipin na ang anxiety ay hindi pumipili ng yaman, pero ang paggaling ay pumipili. Ang isang pribadong konsultasyon sa psychiatrist ay maaaring umabot sa isang linggong halaga ng pagkain sa isang minimum wage earner. Ang masakit pang isipin ay madalas pang kailangan ng sunod-sunod na session dito.</p>
+
+          <p class="mb-4">Pangatlo, kakulangan sa self-care. Hindi masama ang pag-aalaga sa sarili, paghinga ng malalim, at paglakad sa umaga. Pero kapag ang tanging payo sa anxiety ay “mag-meditate ka lang,” ipinapasa natin ang buong bigat ng paggaling na dapat ang sistema ang dapat pumansin. Ang tunay na self-care ay kasama ang paghingi ng tulong, hindi ang pag-iwas dito.</p>
+
+          <p class="mb-4">Ikaapat, gumamit ng mga salitang angkop sa sitwasyong pinagdadaanan ng mga may anxiety. Kapag sinabi natin na “Inaarte lang ’yan,” iniimplika natin na itago nila ang kanilang nararamdaman. At ang itinatago nila ay lalong lumalala. Ang simpleng pagpalit ng tanong na “Ano’ng problema mo?” kaysa “Kamusta ka talaga?” ay maliliit na bagay na may malaking epekto.</p>
+
+          <p class="mb-4">Hindi tayo ang doktor nila, ngunit maaari tayong maging dahilan kung bakit lumalapit sila sa iba. Kung nababasa mo ito at napansin mo na ikaw ang nasa unang talata, hindi ka mahina. Ang paghingi ng tulong sa ganitong mga sitwasyon ay hindi pagkatalo sa anxiety; bagkus ito ay ang pinakamahirap at pinakamatapang na hakbang na maaari mong gawin.</p>
+
+          <p class="mb-4">Maghanap ng doktor. Magsabi sa isang taong pinagkakatiwalaan. Ang anxiety ay hindi tungkol sa kulang na lakas ng loob. Ito ay tungkol sa kulang na sistema. At iyon, kaya nating ayusin.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> Mga Sanggunian / References
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>Martinez, A. B., Co, M., Lau, J., & Brown, J. S. L. (2020). Filipino help-seeking for mental health problems and associated barriers and facilitators: A systematic review. Social Psychiatry and Psychiatric Epidemiology, 55, 1397–1413. https://doi.org/10.1007/s00127-020-01937-2</li>
+            </ul>
+          </div>
+        `
+      },
+
+      {
+        id: 'editorial-fix-the-system',
+        title: 'Fix The System',
+        category: 'English',
+        subcategory: 'Editorial',
+        date: '2026',
+        readTime: '3 min read',
+        author: 'Matteo Randolph M. Tartana',
+        authorBio: 'Matteo Randolph M. Tartana',
+        image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQUs4OGurdMdDMZF0Rp05PsV2vtpe2sWNcFyvttF0vF8aYkzf_HmQAVDI&s=10',
+        excerpt: 'Anxiety in youth has become a growing concern in recent years. In order to help ensure the next generations are well, we must address the issue as a whole rather than just blaming individuals.',
+        content: `
+          <p class="drop-cap mb-4">Anxiety in youth has become a growing concern in recent years. Anxiety disorders are affecting millions of people, especially those in their youth, and impacting their ability to function in everyday life, perform in their academics, and thus their future as well. The issue of anxiety has become complex due to there being two main causes of anxiety in youths today: one being the intense pressures of the education system and the other being the digital world itself. In order to help ensure the next generations are well, we must address this issue as a whole rather than just blaming individuals for their anxiety.</p>
+
+          <p class="mb-4">Evidence shows anxiety is caused by both the education system and the digital world. A peer-reviewed study by Dr. R. Alibudbud looked at the impact of anxiety on students’ mental health. The results showed that 47.2% of Filipino students surveyed are at high risk for developing anxiety disorders. This was caused by unmanageable workloads, exam stress, and the inability to balance study and life. Education today has become highly pressuring and teaches students to associate their overall self-worth with their grades.</p>
+
+          <p class="mb-4">When they are no longer in school, there is no escape from the digital world. Data from the University of the Philippines Population Institute shows that in 2021, the Young Adult Fertility and Sexuality Study saw almost double the amount of youths feeling extremely lonely, sad, and anxious compared to 2013. This decline in mental health correlated with the huge increase in smartphone use and internet use. Students are exposed to extreme amounts of social media, and this leads to them comparing themselves to others, causing them anxiety.</p>
+
+          <p class="mb-4">Many people often argue that students should take more control of their time, implement mindfulness techniques, and reduce screen time. However, this is unfair and inefficient. We cannot expect students to adapt to situations that cause them to panic. We need to make changes to how education providers and technology platforms operate.</p>
+
+          <p class="mb-4">Structural changes need to be made within education. Workloads need to be capped, breaks enforced, and counselors hired. Policymakers and educators need to ensure technology platforms are held accountable for their algorithms. Students should also be taught digital health to manage their screen time. Youth anxiety is a large issue within our systems, and we need to hold people accountable. We need to stop expecting a burnt-out generation to be resilient and create an environment where they can flourish.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> References / Sources
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>Client challenge. (n.d.). https://www.scribd.com/document/807968389/AcademicExperienceasDeterminantsofAnxietyandDepressionamongFilipinoCollegeStudentsYVJPreprint</li>
+              <li>YAFS5 key findings generate discussions on the state of today’s youth. (2023, June 5). UP Population Institute. https://www.uppi.upd.edu.ph/news/2022/YAFS5-key-findings-generate-discussions-on-the-state-of-todays-youth</li>
+            </ul>
+          </div>
+        `
+      },
+
+      {
+        id: 'editorial-beyond-overthinking',
+        title: 'Beyond the Overthinking',
+        category: 'English',
+        subcategory: 'Editorial',
+        date: '2026',
+        readTime: '2 min read',
+        author: 'Andrei Edrick C. Pati',
+        authorBio: 'Andrei Edrick C. Pati',
+        image: 'https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&q=80&w=1000',
+        excerpt: 'Anxiety is becoming an increasing and concerning issue among the youth, yet it is easily misunderstood by society.',
+        content: `
+          <p class="drop-cap mb-4">Anxiety is becoming an increasing and concerning issue among the youth, yet it is easily misunderstood by society. Most people connect anxiety with nervousness, excessive worrying, or a lack of confidence, ignoring the difficulties that an individual may experience. This type of misunderstanding makes it harder for young people to express their struggles and seek the support that they need. Anxiety should not be treated as an exaggeration or as a weakness, but instead as an actual concern that needs proper understanding, awareness, and attention.</p>
+
+          <p class="mb-4">One of the biggest problems surrounding anxiety is how people’s experiences are easily dismissed. Many students who try to express their worries and problems are told to calm down, stop overthinking, or become more confident. At first, these can be seen as harmless, but sometimes they can make individuals feel that their struggles are not being taken seriously. Moreover, the stigma that surrounds mental health can discourage young people from opening up about their experiences with other people. Instead of receiving support, some may fear being judged, misunderstood, or seen as overly sensitive.</p>
+
+          <p class="mb-4">Research and public health reports have emphasized the importance of recognizing mental health concerns among adolescents. These findings highlight the need for accessible support systems and greater awareness of mental health issues. However, awareness alone is not enough if people continue to misunderstand the experiences of those who struggle with anxiety. Society must recognize that anxiety is more complex than ordinary nervousness and that individuals require different forms of support. Dismissing someone’s concerns does not solve the problem; it only makes meaningful conversations about mental health more difficult.</p>
+
+          <p class="mb-4">Schools, families, and communities must take a more active role in addressing this issue. Educational institutions should strengthen their guidance and counseling services, provide programs about mental health, and create an environment where students can openly discuss their concerns. Families, friends, society, and individuals should also practice active listening without immediately judging someone’s feelings. Anxiety is not something that should be treated as an excuse for weakness. We must stop making people feel ashamed of their struggles and start creating a society where help is recognized as a step toward understanding and supporting people with concerns.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> References / Sources
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>Martinez, A. B., Co, M., Lau, J., & Brown, J. S. L. (2020). Filipino help-seeking for mental health problems and associated barriers and facilitators: A systematic review. Social Psychiatry and Psychiatric Epidemiology, 55, 1397–1413. https://doi.org/10.1007/s00127-020-01937-2</li>
+              <li>World Health Organization. (2025, September 1). Mental health of adolescents. https://www.who.int/news-room/fact-sheets/detail/adolescent-mental-health</li>
+            </ul>
+          </div>
+        `
+      },
+
+      {
+        id: 'feature-the-silent-struggle',
+        title: 'The Silent Struggle',
+        category: 'English',
+        subcategory: 'Feature',
+        date: '2026',
+        readTime: '4 min read',
+        author: 'Jared Rafael D. Alarcon',
+        authorBio: 'Jared Rafael D. Alarcon',
+        image: 'https://www.shutterstock.com/shutterstock/videos/1070932012/thumb/1.jpg?ip=x480',
+        excerpt: 'In today’s modern times, young students are facing a crisis in their mental health because of anxiety.',
+        content: `
+          <p class="drop-cap mb-4">In today’s modern times, young students are facing a crisis in their mental health because of anxiety. Anxiety is one of the main factors in why young students are currently experiencing difficulties in their mental state. Its effects are seen directly when people are experiencing something big. It is not just a worry but also a problem. Sometimes, worries are not just worries anymore; they become anxiety where your mind is flooded with it and can cause immense stress on a person. The common signs of anxiety include dizziness, trembling, a racing heartbeat, sweating, and a consistent feeling of danger.</p>
+
+          <p class="mb-4">A college girl named Jennifer had an anxiety attack during a talk with her mother. Her stress came from pressure from academic activities such as back-to-back defenses and countless deadlines. Because of this, she had to breathe into a paper bag to control her breathing and experienced immense stress, causing her to be sent to the hospital. Her doctor, Dr. Manuel, said it was from her heavy workload of academic activities that overwhelmed her to the point of becoming incredibly unhealthy and affecting her physically.</p>
+
+          <p class="mb-4">This story shows how important mental health can be. People can struggle when faced with an overwhelming amount of built-up pressure. It is not always immediate; it can also be the accumulation of stress itself. It does not need to be one big thing. It can be subtle, small, but persistent.</p>
+
+          <p class="mb-4">Youth from all over the world are experiencing similar struggles, as academic pressure is one of the leading factors causing anxiety. Gen Z has been shown to have a much higher rate of mental disorders, especially among the youth, with statistics showing rates nearly double that of Gen X and three times that of Boomers. One of the main reasons for the rise of mental disorders stems from the COVID-19 pandemic, during which 20.5% of children and adolescents across eight different countries exhibited anxiety, a number that doubled in post-pandemic assessments.</p>
+
+          <p class="mb-4">Focusing specifically on the Philippines, many suffer from anxiety due to academic and financial issues. An estimated 7 million to 12.5 million people have been suffering from anxiety. The increase of anxiety within the country has grown at a rate of 2% annually, concentrated significantly among youth aged 15 to 19.</p>
+
+          <p class="mb-4">With all that being said, awareness of anxiety has increased; however, we still seem to forget at times that it exists when we get wrapped up in overwhelming situations and panic. The best thing we can do in those moments is to take a step back and take a deep breath so it does not get any worse. Our struggles in the mind matter, but we cannot let them take hold of us in pressing moments. We must continue to persevere and move forward.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> References / Sources
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>Bargo, K. (2026, June 17). Why teen anxiety continues to rise and what parents can do about it. Joyful Wellness. https://joyfulwellness.ph/mental-health/2026/06/17/3466/teen-anxiety-rise-philippines/</li>
+              <li>Video thumbnail. (n.d.). Shutterstock. https://www.shutterstock.com/shutterstock/videos/1070932012/thumb/1.jpg?ip=x480</li>
+            </ul>
+          </div>
+        `
+      },
+
+      {
+        id: 'feature-a-battle-within-ourselves',
+        title: 'A Battle Within Ourselves',
+        category: 'English',
+        subcategory: 'Feature',
+        date: '2026',
+        readTime: '2 min read',
+        author: 'Uriel Nathan Gabriel S. Habal',
+        authorBio: 'Uriel Nathan Gabriel S. Habal',
+        image: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&q=80&w=1000',
+        excerpt: 'Anxiety is not a weakness. It is a real condition that deserves understanding, support, and proper care.',
+        content: `
+          <p class="drop-cap mb-4">Anxiety often shows itself as nervousness, fear, or constant worry. These feelings are normal for anyone to experience, but when they happen repeatedly and begin to affect a person’s daily life, they may become an anxiety disorder. It is not simply “drama” from young people or from those who experience it. It is a condition that needs proper care, and often only the person going through it can truly understand what they are facing.</p>
+
+          <p class="mb-4">What makes anxiety different is that its symptoms can look different from one person to another. Some people may openly talk about what they are going through, while others keep their struggles to themselves because they do not feel safe enough to speak about them. Common signs of anxiety include overthinking, a racing heartbeat at unexpected times, difficulty resting, becoming easily irritated, and feeling as if something bad might happen.</p>
+
+          <p class="mb-4">It is important for people to understand that every person’s experience with anxiety is different. Some may find it difficult to speak in front of a crowd, while others may seem fine on the outside but feel a tightness in their chest because of panic.</p>
+
+          <p class="mb-4">In many Filipino families, people often say “kaya mo ’yan,” or “you can do it,” to children or family members who are struggling with anxiety. This idea comes from love, but sometimes it pushes people with anxiety to force themselves to say they are okay even when they are not. Because of experiences like this, many people choose to stay silent.</p>
+
+          <p class="mb-4">It is sad to think that mental health is sometimes not given the same attention as physical health. We tell people with mental illness to “just get through it,” but we would not tell someone with a fever to recover without medicine. In the same way, we should recognize that anxiety may also need therapy or treatment.</p>
+
+          <p class="mb-4">Recovery from anxiety does not happen overnight. It is a long process. One of the first steps toward feeling better is for a person to say, “I am not okay.” This is one of the bravest things they can do. Another helpful step is practicing deep breathing to calm the body and mind. Exercise and getting enough sleep can also help a person think more clearly. Most importantly, seeking help from a mental health professional can make a real difference.</p>
+
+          <p class="mb-4">If you are reading this, try to listen without judging people who share their problems. This can prevent them from closing themselves off because they were told to “just get through it.” Many people do not realize that a simple “I am here for you” or “How can I help?” can change the negative thoughts of someone experiencing anxiety.</p>
+
+          <p class="mb-4">Anxiety does not define who a person is. It is not a weakness, and it should never be a source of shame. Every small step, such as waking up in the morning, going to school, telling a friend about a struggle, or speaking honestly about one’s feelings, is not weakness but a personal victory.</p>
+
+          <p class="mb-4">In a world that pushes us to be perfect, it is important to remember that it is okay to not be okay during times when life feels too difficult. Asking for help is not a weakness. It is an act of self-love. To those who chose to face their anxiety, congratulations because you have won a private battle that no one else can fully see.</p>
+
+          <div class="mt-8 pt-4 border-t border-stone-200 dark:border-mithi-blueLight">
+            <h4 class="font-serif font-bold text-xs uppercase tracking-wider text-mithi-crimson dark:text-mithi-gold mb-2 flex items-center gap-1.5">
+              <i class="fa-solid fa-bookmark text-[10px]"></i> References / Sources
+            </h4>
+
+            <ul class="list-disc list-inside text-xs text-stone-500 dark:text-stone-400 space-y-1 font-sans">
+              <li>National Institute of Mental Health. (n.d.). Anxiety disorders. https://www.nimh.nih.gov/health/topics/anxiety-disorders</li>
+              <li>National Institute of Mental Health. (n.d.). Generalized anxiety disorder: When worry gets out of control. https://www.nimh.nih.gov/health/publications/generalized-anxiety-disorder-gad</li>
+              <li>National Institute of Mental Health. (n.d.). Social anxiety disorder: More than just shyness. https://www.nimh.nih.gov/health/publications/social-anxiety-disorder-more-than-just-shyness</li>
+              <li>World Health Organization. (2026, September 15). Anxiety disorders. https://www.who.int/news-room/fact-sheets/detail/anxiety-disorders</li>
+              <li>World Health Organization. (2025, September 1). Mental health of adolescents. https://www.who.int/news-room/fact-sheets/detail/adolescent-mental-health</li>
+            </ul>
+          </div>
+        `
+      }
+    ];
+
+    let activeCategory = 'all';
+    let currentModalArticle = null;
+    let currentFontSize = 18;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderArticles();
+    });
+
+    function setTheme(mode) {
+      document.body.classList.remove('dark', 'theme-sepia');
+
+      if (mode === 'dark') {
+        document.documentElement.classList.add('dark');
+      } else if (mode === 'sepia') {
+        document.documentElement.classList.remove('dark');
+        document.body.classList.add('theme-sepia');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    }
+
+    function renderArticles() {
+      const grid = document.getElementById('articlesGrid');
+      let filtered = [];
+
+      if (activeCategory === 'all') {
+        filtered = articles;
+      } else if (activeCategory === 'Filipino') {
+        filtered = articles.filter(article => article.category === 'Filipino');
+      } else if (activeCategory === 'English') {
+        filtered = articles.filter(article => article.category === 'English');
+      } else {
+        filtered = articles.filter(article => article.subcategory === activeCategory);
+      }
+
+      if (filtered.length === 0) {
+        let emptyMessage = 'Publications will appear here once added.';
+
+        if (activeCategory === 'Filipino') {
+          emptyMessage = 'Wala pang nailalathalang akda sa Filipino Section.';
+        } else if (activeCategory === 'Balita') {
+          emptyMessage = 'Wala pang nailalathalang balita sa Filipino Section.';
+        } else if (activeCategory === 'Kolum') {
+          emptyMessage = 'Wala pang nailalathalang kolum sa Filipino Section.';
+        } else if (activeCategory === 'English') {
+          emptyMessage = 'No publications yet in the English Section.';
+        } else if (activeCategory === 'Feature') {
+          emptyMessage = 'No feature articles published yet in the English Section.';
+        } else if (activeCategory === 'Editorial') {
+          emptyMessage = 'No editorial pieces published yet in the English Section.';
+        }
+
+        grid.innerHTML = `
+          <div class="col-span-full py-16 text-center bg-white/60 dark:bg-mithi-blue/40 rounded-2xl border-2 border-dashed border-mithi-gold/30">
+            <i class="fa-solid fa-feather text-3xl text-mithi-gold mb-3"></i>
+            <h4 class="font-serif text-lg font-bold text-mithi-blue dark:text-white">No stories published yet in this section</h4>
+            <p class="text-xs text-stone-500 dark:text-stone-400 mt-1 max-w-sm mx-auto">${emptyMessage}</p>
+            <button onclick="openAboutModal()" class="mt-4 text-xs font-bold text-mithi-crimson dark:text-mithi-gold hover:underline">
+              Read About MITHI <i class="fa-solid fa-arrow-right ml-1"></i>
+            </button>
+          </div>
+        `;
+
+        return;
+      }
+
+      grid.innerHTML = filtered.map(article => {
+        const tagText = article.subcategory
+          ? `${article.category} / ${article.subcategory}`
+          : `${article.category} Section`;
+
+        return `
+          <article class="bg-white/80 dark:bg-mithi-blue/60 backdrop-blur-sm border border-stone-200 dark:border-mithi-blueLight rounded-2xl overflow-hidden flex flex-col justify-between hover:shadow-xl transition duration-300 group">
+            <div>
+              <div class="relative overflow-hidden aspect-[16/10] cursor-pointer" onclick="openModalById('${article.id}')">
+                <img src="article.image"alt="{article.title}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+
+                <span class="absolute top-3 left-3 bg-mithi-blue/90 text-mithi-gold text-[10px] font-mono px-2.5 py-1 rounded-full font-bold uppercase border border-mithi-gold/30">
+                  ${tagText}
+                </span>
+              </div>
+
+              <div class="p-6">
+                <div class="flex items-center space-x-2 text-[11px] text-stone-400 mb-2">
+                  <span>${article.date}</span>
+                  <span>•</span>
+                  <span>${article.readTime}</span>
+                </div>
+
+                <h3 onclick="openModalById('${article.id}')" class="font-serif font-bold text-lg text-mithi-blue dark:text-white group-hover:text-mithi-crimson dark:group-hover:text-mithi-gold transition cursor-pointer leading-snug mb-2">
+                  ${article.title}
+                </h3>
+
+                <p class="text-xs text-stone-600 dark:text-stone-300 leading-relaxed line-clamp-3 mb-4">
+                  ${article.excerpt}
+                </p>
+              </div>
+            </div>
+
+            <div class="px-6 pb-6 pt-0 flex items-center justify-between border-t border-stone-100 dark:border-mithi-blueLight mt-auto">
+              <div class="flex items-center space-x-2 pt-3">
+                <span class="text-xs font-medium text-stone-700 dark:text-stone-300">${article.author}</span>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join('');
+    }
+
+    function filterCategory(category) {
+      activeCategory = category;
+
+      const title = document.getElementById('sectionTitle');
+      const badge = document.getElementById('sectionIndicatorBadge');
+      const subtext = document.getElementById('sectionSubtext');
+
+      document.querySelectorAll('.nav-btn').forEach(button => {
+        button.classList.remove(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+      });
+
+      if (category === 'all') {
+        document.getElementById('nav-all')?.classList.add(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+
+        title.innerText = 'All Published Content';
+        badge.innerText = 'Viewing All';
+        badge.className = 'px-3 py-1 bg-mithi-crimson text-white font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm';
+        subtext.innerText = 'Showing all publications across Filipino and English sections.';
+      } else if (category === 'Filipino') {
+        document.getElementById('nav-filipino')?.classList.add(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+
+        title.innerText = 'Filipino Section — Lahat ng Akda';
+        badge.innerText = 'Filipino Section';
+        badge.className = 'px-3 py-1 bg-mithi-crimson text-white font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm';
+        subtext.innerText = 'Mga balita, kolum, at malikhaing akda na nakasulat sa wikang Filipino.';
+      } else if (category === 'Balita') {
+        document.getElementById('nav-filipino')?.classList.add(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+
+        title.innerText = 'Filipino Section — Balita';
+        badge.innerText = 'Filipino / Balita';
+        badge.className = 'px-3 py-1 bg-mithi-crimson text-white font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm';
+        subtext.innerText = 'Mga pinakahuling balita, ulat, at kaganapan sa wikang Filipino.';
+      } else if (category === 'Kolum') {
+        document.getElementById('nav-filipino')?.classList.add(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+
+        title.innerText = 'Filipino Section — Kolum';
+        badge.innerText = 'Filipino / Kolum';
+        badge.className = 'px-3 py-1 bg-mithi-gold text-mithi-blue font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm';
+        subtext.innerText = 'Mga opinyon, op-ed, at personal na kolum sa wikang Filipino.';
+      } else if (category === 'English') {
+        document.getElementById('nav-english')?.classList.add(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+
+        title.innerText = 'English Section — All Works';
+        badge.innerText = 'English Section';
+        badge.className = 'px-3 py-1 bg-mithi-blue dark:bg-sky-600 text-white font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm';
+        subtext.innerText = 'Longform essays, feature stories, critical editorials, and investigations written in English.';
+      } else if (category === 'Feature') {
+        document.getElementById('nav-english')?.classList.add(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+
+        title.innerText = 'English Section — Feature';
+        badge.innerText = 'English / Feature';
+        badge.className = 'px-3 py-1 bg-sky-600 text-white font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm';
+        subtext.innerText = 'Feature articles, human interest stories, and cultural deep-dives in English.';
+      } else if (category === 'Editorial') {
+        document.getElementById('nav-english')?.classList.add(
+          'text-mithi-crimson',
+          'dark:text-mithi-gold',
+          'border-b-2',
+          'border-mithi-crimson',
+          'dark:border-mithi-gold'
+        );
+
+        title.innerText = 'English Section — Editorial';
+        badge.innerText = 'English / Editorial';
+        badge.className = 'px-3 py-1 bg-mithi-gold text-mithi-blue font-mono text-[10px] font-bold uppercase tracking-wider rounded-full shadow-sm';
+        subtext.innerText = 'Editorial perspectives, institutional stances, and critical opinion essays in English.';
+      }
+
+      renderArticles();
+    }
+
+    function openAboutModal() {
+      document.getElementById('aboutModal').classList.remove('hidden');
+    }
+
+    function closeAboutModal() {
+      document.getElementById('aboutModal').classList.add('hidden');
+    }
+
+    function openModalById(id) {
+      const article = articles.find(item => item.id === id);
+
+      if (!article) return;
+
+      currentModalArticle = article;
+
+      const tagText = article.subcategory
+        ? `${article.category} / ${article.subcategory}`
+        : `${article.category} Section`;
+
+      document.getElementById('modalCategory').innerText = tagText;
+      document.getElementById('modalReadTime').innerText = article.readTime;
+      document.getElementById('modalAuthorName').innerText = article.author;
+      document.getElementById('modalAuthorBio').innerText = article.authorBio;
+
+      const body = document.getElementById('modalArticleBody');
+      body.style.fontSize = `${currentFontSize}px`;
+
+      body.innerHTML = `
+        <h1 class="font-serif text-3xl sm:text-5xl font-extrabold text-mithi-blue dark:text-white leading-tight mb-4">
+          ${article.title}
+        </h1>
+
+        <p class="text-stone-500 text-sm mb-6 border-b border-stone-200 dark:border-mithi-blueLight pb-4">
+          Published on article.dateby<strong>{article.author}</strong>
+        </p>
+
+        <img src="article.image"alt="{article.title}" class="w-full rounded-2xl object-cover mb-8 max-h-[400px]">
+
+        <div>${article.content}</div>
+      `;
+
+      document.getElementById('articleModal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+
+      const modal = document.getElementById('articleModal');
+
+      modal.onscroll = () => {
+        const scrollTop = modal.scrollTop;
+        const scrollHeight = modal.scrollHeight - modal.clientHeight;
+        const scrollPercent = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
+
+        document.getElementById('modalProgressBar').style.width = `${scrollPercent}%`;
+      };
+    }
+
+    function closeModal() {
+      document.getElementById('articleModal').classList.add('hidden');
+      document.body.style.overflow = 'auto';
+
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
+    function adjustFontSize(change) {
+      currentFontSize = Math.max(14, Math.min(24, currentFontSize + change));
+      document.getElementById('modalArticleBody').style.fontSize = `${currentFontSize}px`;
+    }
+
+    function readArticleTTS() {
+      if (!('speechSynthesis' in window)) return;
+
+      if (window.speechSynthesis.speaking) {
+        window.speechSynthesis.cancel();
+        return;
+      }
+
+      if (currentModalArticle) {
+        const temporaryDiv = document.createElement('div');
+        temporaryDiv.innerHTML = currentModalArticle.content;
+
+        const articleText = currentModalArticle.title + '. ' + temporaryDiv.textContent;
+        const utterance = new SpeechSynthesisUtterance(articleText);
+
+        window.speechSynthesis.speak(utterance);
+      }
+    }
+
+    function openSearchModal() {
+      document.getElementById('searchModal').classList.remove('hidden');
+      document.getElementById('searchInput').focus();
+    }
+
+    function closeSearchModal() {
+      document.getElementById('searchModal').classList.add('hidden');
+    }
+
+    function handleSearch() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const resultsContainer = document.getElementById('searchResults');
+
+      if (!query.trim()) {
+        resultsContainer.innerHTML = '<p class="text-xs text-stone-400 text-center py-6">Type to search articles...</p>';
+        return;
+      }
+
+      const matches = articles.filter(article =>
+        article.title.toLowerCase().includes(query) ||
+        article.author.toLowerCase().includes(query) ||
+        article.category.toLowerCase().includes(query) ||
+        (article.subcategory && article.subcategory.toLowerCase().includes(query))
+      );
+
+      if (matches.length === 0) {
+        resultsContainer.innerHTML = '<p class="text-xs text-stone-400 text-center py-6">No matching stories found.</p>';
+        return;
+      }
+
+      resultsContainer.innerHTML = matches.map(article => {
+        const tagText = article.subcategory
+          ? `${article.category} / ${article.subcategory}`
+          : `${article.category} Section`;
+
+        return `
+          <div onclick="openModalById('${article.id}'); closeSearchModal();" class="p-3 bg-stone-100 dark:bg-mithi-blueLight rounded-xl hover:bg-stone-200 dark:hover:bg-mithi-deepNavy cursor-pointer transition">
+            <span class="text-[10px] font-mono uppercase text-mithi-crimson dark:text-mithi-gold font-bold">${tagText}</span>
+            <h4 class="font-serif font-bold text-sm text-mithi-blue dark:text-white">${article.title}</h4>
+            <span class="text-[11px] text-stone-400">By ${article.author}</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function toggleMobileMenu() {
+      document.getElementById('mobileMenu').classList.toggle('hidden');
+    }
+  </script>
+</body>
+</html>
